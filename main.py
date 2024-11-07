@@ -1,3 +1,14 @@
+def get_todo():
+    with open("todos.txt", "r") as file:
+        todos = file.readlines()
+    return todos
+
+
+def write_todo():
+    with open("todos.txt", "w") as file:
+        file.writelines(todos)
+
+
 while True:
     userInput = input("Enter add, delete, edit, show: ")
     userInput = userInput.strip().split(" ", 1)
@@ -8,39 +19,31 @@ while True:
     match user_command:
         case "add":
 
-            with open("todos.txt", "r") as file:
-                todos = file.readlines()
-
+            todos = get_todo()
             todos.append(user_content + "\n")
-            with open("todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todo()
 
         case "delete":
             try:
-                with open("todos.txt", "r") as file:
-                    todos = file.readlines()
+                todos = get_todo()
 
                 if user_content.isnumeric():
                     delete_content = todos.pop(int(user_content) - 1)
-                    with open("todos.txt", "w") as file:
-                        file.writelines(todos)
-                        print(f"{delete_content} is deleted.")
+                    write_todo()
+                    print(f"{delete_content} is deleted.")
 
                 else:
                     todos.remove(user_content + "\n")
-                    with open("todos.txt", "w") as file:
-                        file.writelines(todos)
-                        print(f"{user_content} is deleted.")
-            except:
+                    write_todo()
+                    print(f"{user_content} is deleted.")
+            except ValueError:
                 print(f"{user_content} is not exist")
 
         case "edit":
             print("edit")
 
         case "show":
-            file = open("todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            todos = get_todo()
 
             for index, todo in enumerate(todos):
                 todo = todo.strip("\n")
