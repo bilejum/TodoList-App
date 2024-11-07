@@ -1,12 +1,4 @@
-def get_todo():
-    with open("todos.txt", "r") as file:
-        todos = file.readlines()
-    return todos
-
-
-def write_todo():
-    with open("todos.txt", "w") as file:
-        file.writelines(todos)
+from functions import get_todo, write_todo
 
 
 while True:
@@ -21,7 +13,7 @@ while True:
 
             todos = get_todo()
             todos.append(user_content + "\n")
-            write_todo()
+            write_todo(todos)
 
         case "delete":
             try:
@@ -29,12 +21,12 @@ while True:
 
                 if user_content.isnumeric():
                     delete_content = todos.pop(int(user_content) - 1)
-                    write_todo()
+                    write_todo(todos)
                     print(f"{delete_content} is deleted.")
 
                 else:
                     todos.remove(user_content + "\n")
-                    write_todo()
+                    write_todo(todos)
                     print(f"{user_content} is deleted.")
             except ValueError:
                 print(f"{user_content} is not exist")
