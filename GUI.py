@@ -57,4 +57,4 @@ while True:
             window["List_Box"].update(todos)
         except IndexError:
             sg.popup("Please select a todo")
-window.close
+window.close()
